@@ -1,5 +1,5 @@
 
-# MEtodo de Newton's en C
+# Metodo de Newton's e, C
 
 ## Descrição
 
