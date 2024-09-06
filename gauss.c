@@ -1,7 +1,3 @@
-
-### Código C Comentado
-
-```c
 #include <stdio.h>
 #include <math.h>
 
