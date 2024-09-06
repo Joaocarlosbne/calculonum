@@ -1,66 +1,46 @@
+# Método de Newton em C para Encontrar Raízes Quadradas
 
-# Metodo de Newton's e, C
+## Introdução
 
-## Descrição
+Este programa implementa o Método de Newton para encontrar a raiz quadrada de um número fornecido pelo usuário. O método de Newton é um algoritmo iterativo para encontrar aproximações das raízes de uma função. No nosso caso, a função é \( f(x) = x^2 - valor \), onde o `valor` é o número para o qual estamos procurando a raiz quadrada.
 
-Este programa implementa o Método de Newton para encontrar uma raiz de uma função quadrática da forma `f(x) = x^2 - valor`, onde `valor` é uma constante inserida pelo usuário. O programa pede uma estimativa inicial e, usando o Método de Newton, aproxima a raiz da equação `f(x) = 0`.
+## O Método de Newton - Passo a Passo
 
-## Como Funciona
+O Método de Newton se baseia nas seguintes etapas:
 
-1. **Entrada do Usuário**:
-   - O programa solicita ao usuário que insira um valor para a constante `valor` na expressão `f(x) = x^2 - valor`. Este valor será utilizado na função para determinar a raiz.
+1. **Escolha de uma estimativa inicial**: Começamos com uma estimativa inicial \( x_0 \).
+2. **Iteração**: Utilizamos a fórmula de Newton para encontrar uma nova estimativa \( x_1 \):
+   
+   \[
+   x_1 = x_0 - \frac{f(x_0)}{f'(x_0)}
+   \]
+   
+   Onde \( f(x) \) é a função e \( f'(x) \) é a derivada da função.
+   
+3. **Repetição**: O processo de iteração é repetido até que a diferença entre duas estimativas consecutivas seja menor que um valor de precisão pré-definido (neste caso, 0.000001).
 
-2. **Estimativa Inicial**:
-   - Após o usuário fornecer o valor para `valor`, o programa solicita uma estimativa inicial. Esta estimativa é o ponto de partida para o Método de Newton.
+4. **Parada**: O método para quando a diferença entre \( x_1 \) e \( x_0 \) for menor que a precisão desejada, o que significa que a aproximação da raiz está suficientemente precisa.
 
-3. **Cálculo da Raiz**:
-   - Usando o Método de Newton, o programa itera a partir da estimativa inicial, ajustando-a em cada passo até que a diferença entre as estimativas consecutivas seja menor que uma precisão predefinida (`EPSILON`).
+## Variáveis Utilizadas no Código
 
-4. **Resultado**:
-   - O programa exibe a raiz aproximada da equação `x^2 - valor = 0` com uma precisão de 6 casas decimais.
+- `EPSILON`: Constante que define a precisão desejada para o cálculo da raiz. Quanto menor o valor, mais precisa será a solução, porém mais iterações serão necessárias.
+  
+- `valor_usuario`: Variável global usada para armazenar o valor fornecido pelo usuário. Este valor é utilizado na função \( f(x) = x^2 - \text{valor_usuario} \), cujo zero estamos tentando encontrar.
 
-## Como Usar
+- `f(double x)`: Função que implementa \( f(x) = x^2 - \text{valor_usuario} \). Esta função é utilizada no Método de Newton para calcular o valor da função na estimativa atual.
 
-1. **Compile o Programa**:
-   - Compile o código usando um compilador C como `gcc`:
-     ```bash
-     gcc -o newton newton_method.c -lm
-     ```
+- `f_prime(double x)`: Função que implementa a derivada de \( f(x) \), ou seja, \( f'(x) = 2x \). Esta derivada é utilizada para calcular a próxima estimativa no Método de Newton.
 
-2. **Execute o Programa**:
-   - Execute o programa compilado:
-     ```bash
-     ./newton
-     ```
+- `newton_method(double x0)`: Função que implementa o Método de Newton. Ela começa com uma estimativa inicial `x0` e realiza iterações até que a diferença entre estimativas sucessivas seja menor que `EPSILON`. O valor retornado é a raiz aproximada.
 
-3. **Insira o Valor da Constante**:
-   - Quando solicitado, insira o valor da constante para a qual você deseja encontrar a raiz. Por exemplo, se você digitar `16`, o programa resolverá a equação `x^2 - 16 = 0`.
+- `x0`: A estimativa inicial fornecida pelo usuário. Se o usuário inserir `0`, o programa define uma estimativa inicial padrão de 1.0 para evitar erro de divisão por zero.
 
-4. **Insira a Estimativa Inicial**:
-   - Insira uma estimativa inicial da raiz. Se você estiver tentando encontrar a raiz quadrada de 16, um valor inicial como `4.0` seria uma boa escolha.
+- `x1`: A próxima estimativa calculada no processo iterativo do Método de Newton.
 
-5. **Visualize o Resultado**:
-   - O programa calculará a raiz aproximada e exibirá o resultado na tela.
+## Sintaxe do Código
 
-## Exemplo de Uso
+Para compilar e rodar o código, siga os seguintes passos:
 
-Aqui está um exemplo de execução do programa:
-
-```plaintext
-Digite um valor para a expressão x^2 - valor: 16
-Digite uma estimativa inicial: 4
-A raiz aproximada é: 4.000000
-```
-
-Neste exemplo, o programa calculou a raiz quadrada de 16 usando uma estimativa inicial de 4, e retornou o valor exato de 4.
-
-## Observações
-
-- O programa foi projetado para encontrar a raiz positiva da equação `x^2 - valor = 0`. Para valores negativos, o método pode não funcionar corretamente, pois ele se baseia em funções reais.
-
-- Certifique-se de fornecer uma estimativa inicial próxima da raiz esperada para garantir a rápida convergência do Método de Newton.
-
-## Requisitos
-
-- Um compilador C como `gcc`.
-- Sistema operacional capaz de executar programas C (Linux, MacOS, Windows com Cygwin ou MinGW).
+1. Compile o código:
+   ```bash
+   gcc -o newton_method newton_method.c -lm
